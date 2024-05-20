@@ -1,6 +1,6 @@
-<div style="width:400px; margin: auto;">
-<img src="./ressources/logo.png" alt="safinaDbLogo" />
-</div>
+<p align="center">
+   <img src="./ressources/logo.png" alt="safinaDbLogo" width="300"/>
+</p>
 
 # SafinaDB 🚢
 
