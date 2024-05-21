@@ -1,5 +1,5 @@
 <p align="center">
-   <img src="./ressources/Safina DB.png" alt="safinaDbLogo" width="400"/>
+   <img src="./ressources/logo.png" alt="safinaDbLogo" width="400"/>
 </p>
 
 # SafinaDB 🚢
