@@ -4,7 +4,7 @@
 
 # SafinaDB 🚢
 
-SafinaDB (safina;سفينة; ship; saa-fee-na) is a custom-built database engine designed to be efficient, stable annd fast **(for learning purposes)**. Inspired by the Arabic word for "ship".
+SafinaDB (safina;سفينة;ship;saa-fee-na) is a custom-built database engine designed to be efficient, stable and fast **(for learning purposes)**. Inspired by the Arabic word for "ship".
 This project is developed incrementally, starting from a basic key-value store to an advanced distributed database system.
 
 
