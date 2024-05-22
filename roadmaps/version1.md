@@ -19,26 +19,6 @@
    - Serializes data to JSON for saving.
    - Deserializes JSON for loading.
 
-#### Modules
-
-1. **Main Module (`main.rs`)**
-   - Initializes the CLI.
-   - Manages the interaction between the CLI and the Key-Value Store.
-
-2. **CLI Module (`cli.rs`)**
-   - Defines functions for parsing and executing commands.
-   - Interacts with the Key-Value Store to perform operations.
-
-3. **Key-Value Store Module (`kv_store.rs`)**
-   - Contains the HashMap for in-memory storage.
-   - Implements CRUD operations.
-   - Interfaces with the Storage Layer for persistence.
-
-4. **Storage Module (`storage.rs`)**
-   - Implements functions for saving data to a file.
-   - Implements functions for loading data from a file.
-   - Uses `serde` for serialization/deserialization.
-
 #### Data Flow
 
 1. **User Interaction**
@@ -52,7 +32,7 @@
 
 4. **Data Manipulation**
    - Key-Value Store manipulates the in-memory HashMap.
-   - For `insert` and `update`, it also calls the Storage Layer to persist changes.
+   - For `insert`, `update` and `delete`, it also calls the Storage Layer to persist changes.
 
 5. **Storage Persistence**
    - Storage Layer serializes the HashMap to JSON.
@@ -61,75 +41,49 @@
 6. **Data Retrieval**
    - On startup or load command, the Storage Layer deserializes JSON from the file.
    - Populates the HashMap in the Key-Value Store.
+### Usage:
+```shell
+$> cargo run
+(safina_db) ➜ insert "name" "Abdellah A."
+Inserted entry {'name' : 'Abdellah A.'}
 
+(safina_db) ➜ get name
+Entry: name = Abdellah A.
+
+(safina_db) ➜ exit
+exit...
+```
 ### Diagram
 
-```
-User
-  |
-  v
-CLI
-  |
-  v
-Key-Value Store
-      |
-  -----------
-  |         |
-  v         v
-In-Memory   Storage
-HashMap     - Serialize to JSON
-            - File I/O
-```
 <img src="../ressources/version1-diagram.png" alt="v1-diagram" width="900">
 
 
 ### Roadmap
 
-#### To-Do List for Version 1
 
-- [ ] **Project Setup**
-  - [ ] Initialize a new Rust project with Cargo.
-    - Run `cargo new safina_db` to create a new project.
-  - [ ] Organize project structure (src, tests).
-    - Create `src/cli.rs`, `src/kv_store.rs`, and `src/storage.rs`.
+1. **Implement Basic Storage Functions**:
+    - [x] Implement the `insert`.
+    - [x] Implement the `get`.
+    - [ ] Implement the `update`.
+    - [ ] Implement the `delete`.
 
-- [ ] **Basic Data Storage**
-  - [ ] Implement file-based storage for key-value pairs.
-    - Create a function to write key-value pairs to a file.
-    - Create a function to read key-value pairs from a file.
-  - [ ] Use `serde` for serialization and deserialization.
-    - Add `serde` and `serde_json` dependencies to `Cargo.toml`.
-    - Implement serialization of the HashMap to JSON.
-    - Implement deserialization of JSON to the HashMap.
 
-- [ ] **CRUD Operations**
-  - [ ] Implement Create operation.
-    - Add a method to insert a key-value pair into the HashMap.
-    - Save the updated HashMap to the file.
-  - [ ] Implement Read operation.
-    - Add a method to retrieve a value by key from the HashMap.
-  - [ ] Implement Update operation.
-    - Add a method to update the value for an existing key in the HashMap.
-    - Save the updated HashMap to the file.
-  - [ ] Implement Delete operation.
-    - Add a method to remove a key-value pair from the HashMap.
-    - Save the updated HashMap to the file.
+2. **Set Up Command-Line Interface**:
+    - [x] Add dependencies in `Cargo.toml` for the `clap` crate.
+    - [x] Create a basic CLI for inserting and retrieving data.
 
-- [ ] **Simple CLI**
-  - [ ] Create a command-line interface for interacting with the database.
-    - Implement command parsing for `insert`, `get`, `update`, `delete`, `exit`.
-    - Connect CLI commands to the respective CRUD operations in the Key-Value Store.
-
-- [ ] **Testing**
-  - [ ] Write unit tests for CRUD operations and storage functions.
-    - Test insertion of key-value pairs.
-    - Test retrieval of values by key.
-    - Test updating values for existing keys.
-    - Test deletion of key-value pairs.
-    - Test serialization and deserialization of the HashMap.
-
-- [ ] **Documentation**
-  - [ ] Document setup, usage, and basic architecture in the README.
-    - Provide instructions for setting up the project.
-    - Provide usage examples for each CLI command.
-    - Describe the architecture and data flow.
+4. **Persistence**:
+    - [ ] Implement simple file-based persistence to save and load key-value pairs.
+        - [ ] Define a method to save the key-value pairs to a file.
+        - [ ] Define a method to load key-value pairs from a file at startup.
+    - [ ] Ensure data is loaded from the file on startup and saved on exit.
+        - [ ] Modify the `main` function to load data at startup.
+        - [ ] Modify the `main` function to save data on exit.
+5.  **Testing**
+    - [ ] Write unit tests for CRUD operations and storage functions.
+      - [ ] Test insertion of key-value pairs.
+      - [ ] Test retrieval of values by key.
+      - [ ] Test updating values for existing keys.
+      - [ ] Test deletion of key-value pairs.
+      - [ ] Test serialization and deserialization of the HashMap.
+  
