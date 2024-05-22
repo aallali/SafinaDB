@@ -30,7 +30,7 @@ pub fn cli_parser() -> Command {
             Command::new("update")
                 .about("update entry value")
                 .arg_required_else_help(true)
-                .arg(arg!(base: [KEY]).required(true))
-                .arg(arg!(head: [VALUE]).required(true)),
+                .arg(arg!(key: [KEY]).required(true))
+                .arg(arg!(value: [VALUE]).required(true)),
         )
 }

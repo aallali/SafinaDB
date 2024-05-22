@@ -8,6 +8,7 @@ use regex::Regex;
 
 fn main() {
     let mut store = Store::new();
+
     loop {
         print!("\n(safina) ➜ ");
         io::stdout().flush().unwrap();
@@ -31,7 +32,6 @@ fn main() {
             .collect();
         args.insert(0, "safina_db".to_string());
 
-
         let matches = match cli_parser().try_get_matches_from(args) {
             Ok(matches) => matches,
             Err(err) => {
@@ -52,9 +52,11 @@ fn main() {
                     .map(|s| s.as_str())
                     .unwrap();
 
-                println!("Inserted entry {{'{key}' : '{value}'}}");
-                store.insert(String::from(key), String::from(value));
                 // println!("{:#?}", store);
+                match store.insert(String::from(key), String::from(value)) {
+                    Ok(_) => println!("Inserted entry {{'{key}' : '{value}'}}"),
+                    Err(e) => println!("Error {}", e),
+                }
             }
 
             Some(("get", sub_matches)) => {
@@ -65,9 +67,38 @@ fn main() {
                 // println!("{:#?}", store);
 
                 match store.get(key) {
-                    Ok(value) => println!("Entry: {key} = {}", value),
+                    Ok(pair) => println!("Entry: {key} = {}", pair.value),
                     Err(e) => println!("Error: {}", e),
                 }
+            }
+
+            Some(("update", sub_matches)) => {
+                let key: &str = sub_matches
+                    .get_one::<String>("key")
+                    .map(|s| s.as_str())
+                    .unwrap();
+
+                let value: &str = sub_matches
+                    .get_one::<String>("value")
+                    .map(|s| s.as_str())
+                    .unwrap();
+
+                // println!("{:#?}", store);
+                match store.update(key, value) {
+                    Ok(()) => println!("Entry updated succeffuly"),
+                    Err(e) => println!("Error: {}", e),
+                }
+            }
+
+            Some(("delete", sub_matches)) => {
+                let key: &str = sub_matches
+                    .get_one::<String>("key")
+                    .map(|s| s.as_str())
+                    .unwrap();
+
+                // println!("{:#?}", store);
+                store.delete(key);
+                println!("Entry deleted succeffuly")
             }
             Some(("exit", _sub_matches)) => {
                 println!("exit...");
