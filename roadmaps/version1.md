@@ -44,11 +44,29 @@
 ### Usage:
 ```shell
 $> cargo run
-(safina_db) ➜ insert "name" "Abdellah A."
-Inserted entry {'name' : 'Abdellah A.'}
 
-(safina_db) ➜ get name
-Entry: name = Abdellah A.
+(safina) ➜ get age
+Error: Key not found
+
+(safina) ➜ insert age 11
+Inserted entry {'age' : '11'}
+
+(safina) ➜ get age
+Entry: age = 11
+
+(safina) ➜ update age 24
+Entry updated succeffuly
+
+(safina) ➜ get age
+Entry: age = 24
+
+(safina) ➜ delete age
+Entry deleted succeffuly
+
+(safina) ➜ get age
+Error: Key not found
+
+(safina) ➜ 
 
 (safina_db) ➜ exit
 exit...
@@ -64,8 +82,8 @@ exit...
 1. **Implement Basic Storage Functions**:
     - [x] Implement the `insert`.
     - [x] Implement the `get`.
-    - [ ] Implement the `update`.
-    - [ ] Implement the `delete`.
+    - [x] Implement the `update`.
+    - [x] Implement the `delete`.
 
 
 2. **Set Up Command-Line Interface**:
