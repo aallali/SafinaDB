@@ -45,31 +45,48 @@
 ```shell
 $> cargo run
 
-(safina) ➜ get age
+(safinaDB) ➜ insert name "abdellah allali"
+Inserted entry {'name': 'abdellah allali'}
+
+(safinaDB) ➜ insert age 69
+Inserted entry {'age': '69'}
+
+(safinaDB) ➜ insert phone 0606060606
+Inserted entry {'phone': '0606060606'}
+
+(safinaDB) ➜ insert version 1.0.0
+Inserted entry {'version': '1.0.0'}
+
+(safinaDB) ➜ insert bool true
+Inserted entry {'bool': 'true'}
+
+(safinaDB) ➜ get name
+Entry: {"name" : "abdellah allali"}
+
+(safinaDB) ➜ get age
+Entry: {"age" : "69"}
+
+(safinaDB) ➜ get phone
+Entry: {"phone" : "0606060606"}
+
+(safinaDB) ➜ get bool
+Entry: {"bool" : "true"}
+
+(safinaDB) ➜ update name bombastic
+Updated entry {'name' : 'bombastic'}
+
+(safinaDB) ➜ get name
+Entry: {"name" : "bombastic"}
+
+(safinaDB) ➜ delete name
+Entry deleted successfully
+
+(safinaDB) ➜ get name
 Error: Key not found
 
-(safina) ➜ insert age 11
-Inserted entry {'age' : '11'}
-
-(safina) ➜ get age
-Entry: age = 11
-
-(safina) ➜ update age 24
-Entry updated succeffuly
-
-(safina) ➜ get age
-Entry: age = 24
-
-(safina) ➜ delete age
-Entry deleted succeffuly
-
-(safina) ➜ get age
-Error: Key not found
-
-(safina) ➜ 
-
-(safina_db) ➜ exit
-exit...
+(safinaDB) ➜ exit
+Exiting ...
+$>
 ```
 ### Diagram
 
