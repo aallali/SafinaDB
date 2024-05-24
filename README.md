@@ -18,7 +18,7 @@ This project is developed incrementally, starting from a basic key-value store t
 
 ## 🗺️ Project Roadmap
 
-### [Version 1: Basic Key-Value Store](/aallali/SafinaDB/blob/v1/roadmaps/version1.md) ⏳
+### [Version 1: Basic Key-Value Store](https://github.com/aallali/SafinaDB/blob/v1/roadmaps/version1.md) ⏳
 - Data Storage: File-based storage for key-value pairs.
 - Basic CRUD Operations: Create, Read, Update, Delete functionality.
 - Simple CLI: Command-line interface for interacting with the database.
