@@ -116,9 +116,9 @@ $>
         - [ ] Modify the `main` function to save data on exit.
 5.  **Testing**
     - [ ] Write unit tests for CRUD operations and storage functions.
-      - [ ] Test insertion of key-value pairs.
-      - [ ] Test retrieval of values by key.
-      - [ ] Test updating values for existing keys.
-      - [ ] Test deletion of key-value pairs.
+      - [x] Test insertion of key-value pairs.
+      - [x] Test retrieval of values by key.
+      - [x] Test updating values for existing keys.
+      - [x] Test deletion of key-value pairs.
       - [ ] Test serialization and deserialization of the HashMap.
   
