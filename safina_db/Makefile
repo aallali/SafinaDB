@@ -13,7 +13,7 @@ build:
 # Run the project
 run:
 	@echo "Running the project..."
-	@cargo run
+	@cargo run -q
 
 # Run tests
 test:
