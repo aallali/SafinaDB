@@ -24,17 +24,17 @@ jobs:
       run: |
         cd safina_db
         cargo test --verbose
-    - name: Generate Documentation
-      run: |
-        cd safina_db
-        cargo doc --no-deps
+
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v4
+    - name: Generate Documentation
+      run: |
+        cd safina_db
+        cargo doc --no-deps
     - name: Change Directory to safina_db and Deploy Documentation to GitHub Pages
       run: |
         cd safina_db
