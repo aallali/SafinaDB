@@ -37,7 +37,6 @@ jobs:
         cargo doc --no-deps
     - name: Change Directory to safina_db and Deploy Documentation to GitHub Pages
       run: |
-        cd safina_db
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
         mv safina_db/target/doc documentation
