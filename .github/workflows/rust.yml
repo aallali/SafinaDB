@@ -40,8 +40,7 @@ jobs:
         cd safina_db
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-        mv target/doc ../documentation
-        cd ..
+        mv safina_db/target/doc documentation
         git clone --branch gh-pages https://github.com/${{ github.repository }} gh-pages
         rm -rf gh-pages/*
         cp -r documentation/* gh-pages/
