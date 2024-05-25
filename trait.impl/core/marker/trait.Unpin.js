@@ -1,0 +1,3 @@
+(function() {var implementors = {
+"safina_db":[["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/1.78.0/core/marker/trait.Unpin.html\" title=\"trait core::marker::Unpin\">Unpin</a> for <a class=\"struct\" href=\"safina_db/kv_store/struct.KV.html\" title=\"struct safina_db::kv_store::KV\">KV</a>",1,["safina_db::kv_store::KV"]],["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/1.78.0/core/marker/trait.Unpin.html\" title=\"trait core::marker::Unpin\">Unpin</a> for <a class=\"struct\" href=\"safina_db/kv_store/struct.Store.html\" title=\"struct safina_db::kv_store::Store\">Store</a>",1,["safina_db::kv_store::Store"]]]
+};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()
