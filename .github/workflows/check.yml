@@ -1,0 +1,58 @@
+name: Check & Deploy Doc
+
+on:
+  push:
+    branches: [ "v1" ]
+  pull_request:
+    branches: [ "v1" ]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Change Directory to safina_db and Build
+      run: |
+        cd safina_db
+        cargo check
+  test:
+    needs: check
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Run tests
+      run: |
+        cd safina_db
+        cargo test    
+  deploy_docs:
+    needs: check
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Configure Git
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+    - name: Generate Documentation
+      run: |
+        cd safina_db
+        cargo doc --no-deps
+    - name: Deploy Documentation to GitHub Pages
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+      run: |
+        git clone --branch gh-pages https://${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }} gh-pages
+        ls -la
+        echo "================================="
+        ls -la safina_db/target
+        mv safina_db/target/doc documentation
+        cp -r documentation/* gh-pages/
+        
+        cd gh-pages
+        echo $(date)::$(whoami) > NOW && cat NOW
+        git add .
+        git commit -m "Deploy documentation"
+        git push --force https://${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }} gh-pages
