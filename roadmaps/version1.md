@@ -88,10 +88,6 @@ Error: Key not found
 Exiting ...
 $>
 ```
-### Diagram
-
-<img src="../ressources/version1-diagram.png" alt="v1-diagram" width="900">
-
 
 ### Roadmap
 

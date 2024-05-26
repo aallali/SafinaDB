@@ -1,8 +1,8 @@
 <p align="center">
-   <img src="./ressources/logo.png" alt="safinaDbLogo" width="400"/>
+   <img src="https://i.imgur.com/1d3FEwF.png" alt="safinaDbLogo" width="200"/>
 </p>
 
-# SafinaDB 🚢
+# SafinaDB
 
 SafinaDB (safina;سفينة;ship;saa-fee-na) is a custom-built database engine designed to be efficient, stable and fast **(for learning purposes)**. Inspired by the Arabic word for "ship".
 This project is developed incrementally, starting from a basic key-value store to an advanced distributed database system.
@@ -11,8 +11,6 @@ This project is developed incrementally, starting from a basic key-value store t
 ## 📋 Table of contents
 - [Project Roadmap](#️-project-roadmap)
 - [Getting Started](#-getting-started)
-- [Contributing](#Contributing)
-
 
 ---
 
@@ -75,29 +73,29 @@ To get started with SafinaDB, follow these steps:
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/yourusername/SafinaDB.git
-   cd SafinaDB/app
+   git clone https://github.com/aallali/SafinaDB.git
+   cd SafinaDB/safina_db
    ```
 
-2. **Build the project**:
+1. **Build the project**:
    ```bash
    make build
    ```
 
-3. **Run the database server**:
+1. **Use the CLI**:
    ```bash
-   ./safinadb start
+   make run
+   ```
+1. **Run tests**:
+   ```bash
+   make test
+   ```
+1. **Run benchmarks**:
+   ```bash
+   make bench
    ```
 
-4. **Use the CLI**:
+1. **Generate documentation**:
    ```bash
-   ./safinadb-cli
+   make doc
    ```
-
-## Contributing
-
-Contributions are welcome! Please fork this repository and submit pull requests to add new features or fix bugs. For major changes, please open an issue first to discuss what you would like to change.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
