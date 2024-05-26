@@ -8,7 +8,7 @@ pub fn bench_insert(c: &mut Criterion) {
         b.iter(|| {
         let mut store = Store::new();
             for i in 0..1000 {
-                store.insert(format!("key-{}", i), "value".to_string()).unwrap();
+                store.insert(format!("key-{}", i).as_str(), "value").unwrap();
             }
         })
     });
@@ -19,7 +19,7 @@ pub fn bench_get(c: &mut Criterion) {
     c.bench_function("get 1000 keys", |b| {
         let mut store = Store::new();
         for i in 0..1000 {
-            store.insert(format!("key{}", i), "value".to_string()).unwrap();
+            store.insert(format!("key{}", i).as_str(), "value").unwrap();
         }
         b.iter(|| {
             for i in 0..1000 {
@@ -33,7 +33,7 @@ pub fn bench_update(c: &mut Criterion) {
     c.bench_function("update 1000 keys", |b| {
         let mut store = Store::new();
         for i in 0..1000 {
-            store.insert(format!("key{}", i), "value".to_string()).unwrap();
+            store.insert(format!("key{}", i).as_str(), "value").unwrap();
         }
         b.iter(|| {
             for i in 0..1000 {
@@ -47,7 +47,7 @@ pub fn bench_delete(c: &mut Criterion) {
     c.bench_function("delete 1000 keys", |b| {
         let mut store = Store::new();
         for i in 0..1000 {
-            store.insert(format!("key{}", i), "value".to_string()).unwrap();
+            store.insert(format!("key{}", i).as_str(), "value").unwrap();
         }
         b.iter(|| {
             for i in 0..1000 {

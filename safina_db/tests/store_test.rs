@@ -8,7 +8,7 @@ mod tests {
     #[test]
     fn test_insert_new_key() {
         let mut store = Store::new();
-        let result = store.insert("key1".to_string(), "value1".to_string());
+        let result = store.insert("key1", "value1");
         assert!(result.is_ok());
         assert_eq!(store.get("key1").unwrap().value, "value1");
     }
@@ -16,7 +16,7 @@ mod tests {
     #[test]
     fn test_insert_empty_key() {
         let mut store = Store::new();
-        let result = store.insert("".to_string(), "value1".to_string());
+        let result = store.insert("", "value1");
         assert!(result.is_ok());
         assert_eq!(store.get("").unwrap().value, "value1");
     }
@@ -24,8 +24,8 @@ mod tests {
     #[test]
     fn test_insert_existing_key() {
         let mut store = Store::new();
-        store.insert("key1".to_string(), "value1".to_string()).unwrap();
-        let result = store.insert("key1".to_string(), "value2".to_string());
+        store.insert("key1", "value1").unwrap();
+        let result = store.insert("key1", "value2");
         assert!(result.is_err());
         assert_eq!(result.err(), Some("Key already exists"));
     }
@@ -34,7 +34,7 @@ mod tests {
     fn test_get_existing_key() {
         let mut store = Store::new();
         let expected_resp = "value1,value2,value3";
-        store.insert("key1".to_string(), expected_resp.to_string()).unwrap();
+        store.insert("key1", expected_resp).unwrap();
         let result = store.get("key1");
         assert!(result.is_ok());
         assert_eq!(result.unwrap().value, expected_resp);
@@ -51,7 +51,7 @@ mod tests {
     #[test]
     fn test_update_existing_key() {
         let mut store = Store::new();
-        store.insert("key1".to_string(), "value1".to_string()).unwrap();
+        store.insert("key1", "value1").unwrap();
         let result = store.update("key1", "value2");
         assert!(result.is_ok());
         assert_eq!(store.get("key1").unwrap().value, "value2");
@@ -68,7 +68,7 @@ mod tests {
     #[test]
     fn test_delete_existing_key() {
         let mut store = Store::new();
-        store.insert("key1".to_string(), "value1".to_string()).unwrap();
+        store.insert("key1", "value1").unwrap();
         store.delete("key1");
         let result = store.get("key1");
         assert!(result.is_err());
@@ -88,7 +88,7 @@ mod tests {
     #[test]
     fn test_insert_empty_value() {
         let mut store = Store::new();
-        let result = store.insert("key".to_string(), "".to_string());
+        let result = store.insert("key", "");
         assert!(result.is_ok());
         assert_eq!(store.get("key").unwrap().value, "");
     }
@@ -98,7 +98,7 @@ mod tests {
         let mut store = Store::new();
         let large_key = "k".repeat(1000);
         let large_value = "v".repeat(1000);
-        let result = store.insert(large_key.clone(), large_value.clone());
+        let result = store.insert(large_key.clone().as_str(), large_value.clone().as_str());
         assert!(result.is_ok());
         assert_eq!(store.get(&large_key).unwrap().value, large_value);
     }
@@ -106,7 +106,7 @@ mod tests {
     #[test]
     fn test_update_empty_value() {
         let mut store = Store::new();
-        store.insert("key".to_string(), "value".to_string()).unwrap();
+        store.insert("key", "value").unwrap();
         let result = store.update("key", "");
         assert!(result.is_ok());
         assert_eq!(store.get("key").unwrap().value, "");
@@ -115,7 +115,7 @@ mod tests {
     #[test]
     fn test_delete_empty_key() {
         let mut store = Store::new();
-        store.insert("".to_string(), "value".to_string()).unwrap();
+        store.insert("", "value").unwrap();
         store.delete("");
         let result = store.get("");
         assert!(result.is_err());
@@ -125,7 +125,7 @@ mod tests {
     #[test]
     fn test_delete_multiple_times() {
         let mut store = Store::new();
-        store.insert("key".to_string(), "value".to_string()).unwrap();
+        store.insert("key", "value").unwrap();
         store.delete("key");
         let result = store.get("key");
         assert!(result.is_err());

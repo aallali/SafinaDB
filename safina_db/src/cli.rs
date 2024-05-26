@@ -62,7 +62,7 @@ fn respond(line: &str) -> Result<bool, String> {
                 .map(|s| s.as_str())
                 .unwrap();
 
-            match store.insert(String::from(key), String::from(value)) {
+            match store.insert(key, value) {
                 Ok(_) => println!("Inserted entry {{'{key}': '{value}'}}"),
                 Err(e) => println!("Error {}", e),
             }
