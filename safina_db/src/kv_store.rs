@@ -100,8 +100,8 @@ impl Store {
     pub fn delete(&mut self, key: &str) {
         if let Some(index) = self.data.iter().position(|x| x.key == key) {
             self.data.remove(index);
+            self.persist_data().unwrap();
         }
-        self.persist_data().unwrap();
     }
 
     /// Persists the current data to the storage by serializing it and writing it to a file.
