@@ -19,8 +19,10 @@ run:
 test:
 	@echo "Running tests..."
 	@cargo test
+	make clean-test-db
 
-
+clean-test-db:
+	@rm db-test-*
 # Run benchmarks
 bench:
 	@echo "Running benchmarks..."
@@ -28,6 +30,7 @@ bench:
 	@echo "Moving benchmarks output to 'benchmarks' folder..."
 	@rm -rf ../benchmarks
 	@mv target/criterion ../benchmarks/
+	make clean-test-db
 
 # Generate documentation and move it to 'documentation' folder
 doc: 
@@ -43,3 +46,4 @@ clean:
 	@echo "Cleaning the project..."
 	@cargo clean
 	@rm -rf documentation
+	make clean-test-db
