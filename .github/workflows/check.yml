@@ -48,10 +48,10 @@ jobs:
         ls -la
         echo "================================="
         ls -la safina_db/target
-        rm -rf gh-pages/documentation
+        rm -rf gh-pages/*
         mv safina_db/target/doc documentation
         cp -r documentation/* gh-pages/
-       
+        mv gh-pages/safina_db gh-pages/documentation
         cd gh-pages
         echo $(date)::$(whoami) > NOW.txt && cat NOW.txt
         git add .
