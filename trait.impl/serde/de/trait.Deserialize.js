@@ -1,0 +1,3 @@
+(function() {var implementors = {
+"safina_db":[["impl&lt;'de&gt; <a class=\"trait\" href=\"https://docs.rs/serde/1.0.203/serde/de/trait.Deserialize.html\" title=\"trait serde::de::Deserialize\">Deserialize</a>&lt;'de&gt; for <a class=\"struct\" href=\"safina_db/kv_store/struct.KV.html\" title=\"struct safina_db::kv_store::KV\">KV</a>"]]
+};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

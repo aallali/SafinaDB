@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"fn":["cli","readline","respond","run"]};
+window.SIDEBAR_ITEMS = {"fn":["run"]};

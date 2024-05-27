@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"fn":["main"],"mod":["cli","kv_store"],"static":["STORE"]};
+window.SIDEBAR_ITEMS = {"mod":["cli","kv_store","storage"],"static":["STORAGE_MUTEX","STORE_MUTEX"]};

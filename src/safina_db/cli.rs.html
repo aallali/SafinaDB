@@ -186,13 +186,9 @@
 <a href="#184" id="184">184</a>
 <a href="#185" id="185">185</a>
 <a href="#186" id="186">186</a>
-<a href="#187" id="187">187</a>
-<a href="#188" id="188">188</a>
-</pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">crate</span>::kv_store::Store;
-<span class="kw">use </span><span class="kw">crate</span>::STORE;
+</pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">crate</span>::STORE_MUTEX;
 <span class="kw">use </span>clap::{arg, Command};
 <span class="kw">use </span>std::io::Write;
-<span class="kw">use </span>std::sync::MutexGuard;
 
 <span class="doccomment">/// Runs the REPL loop, reading user input and responding accordingly.
 ///
@@ -237,7 +233,7 @@
         .try_get_matches_from(args)
         .map_err(|e| e.to_string())<span class="question-mark">?</span>;
 
-    <span class="kw">let </span><span class="kw-2">mut </span>store: MutexGuard&lt;Store&gt; = STORE.lock().map_err(|e| e.to_string())<span class="question-mark">?</span>;
+    <span class="kw">let </span><span class="kw-2">mut </span>store: std::sync::MutexGuard&lt;<span class="kw">crate</span>::Store&gt; = STORE_MUTEX.lock().unwrap();
 
     <span class="kw">match </span>matches.subcommand() {
         <span class="prelude-val">Some</span>((<span class="string">"insert"</span>, sub_matches)) =&gt; {
@@ -252,7 +248,7 @@
                 .map(|s| s.as_str())
                 .unwrap();
 
-            <span class="kw">match </span>store.insert(String::from(key), String::from(value)) {
+            <span class="kw">match </span>store.insert(key, value) {
                 <span class="prelude-val">Ok</span>(<span class="kw">_</span>) =&gt; <span class="macro">println!</span>(<span class="string">"Inserted entry {{'{key}': '{value}'}}"</span>),
                 <span class="prelude-val">Err</span>(e) =&gt; <span class="macro">println!</span>(<span class="string">"Error {}"</span>, e),
             }

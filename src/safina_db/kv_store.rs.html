@@ -87,9 +87,52 @@
 <a href="#85" id="85">85</a>
 <a href="#86" id="86">86</a>
 <a href="#87" id="87">87</a>
-</pre></div><pre class="rust"><code> 
+<a href="#88" id="88">88</a>
+<a href="#89" id="89">89</a>
+<a href="#90" id="90">90</a>
+<a href="#91" id="91">91</a>
+<a href="#92" id="92">92</a>
+<a href="#93" id="93">93</a>
+<a href="#94" id="94">94</a>
+<a href="#95" id="95">95</a>
+<a href="#96" id="96">96</a>
+<a href="#97" id="97">97</a>
+<a href="#98" id="98">98</a>
+<a href="#99" id="99">99</a>
+<a href="#100" id="100">100</a>
+<a href="#101" id="101">101</a>
+<a href="#102" id="102">102</a>
+<a href="#103" id="103">103</a>
+<a href="#104" id="104">104</a>
+<a href="#105" id="105">105</a>
+<a href="#106" id="106">106</a>
+<a href="#107" id="107">107</a>
+<a href="#108" id="108">108</a>
+<a href="#109" id="109">109</a>
+<a href="#110" id="110">110</a>
+<a href="#111" id="111">111</a>
+<a href="#112" id="112">112</a>
+<a href="#113" id="113">113</a>
+<a href="#114" id="114">114</a>
+<a href="#115" id="115">115</a>
+<a href="#116" id="116">116</a>
+<a href="#117" id="117">117</a>
+<a href="#118" id="118">118</a>
+<a href="#119" id="119">119</a>
+<a href="#120" id="120">120</a>
+<a href="#121" id="121">121</a>
+<a href="#122" id="122">122</a>
+<a href="#123" id="123">123</a>
+<a href="#124" id="124">124</a>
+<a href="#125" id="125">125</a>
+<a href="#126" id="126">126</a>
+<a href="#127" id="127">127</a>
+<a href="#128" id="128">128</a>
+</pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">super</span>::STORAGE_MUTEX;
+<span class="kw">use </span>serde;
+
 <span class="doccomment">/// Represents a key-value pair.
-</span><span class="attr">#[derive(Debug)]
+</span><span class="attr">#[derive(serde::Serialize, serde::Deserialize, Debug, Clone)]
 </span><span class="kw">pub struct </span>KV {
     <span class="kw">pub </span>key: String,
     <span class="kw">pub </span>value: String,
@@ -98,7 +141,7 @@
 <span class="doccomment">/// Represents the in-memory key-value store.
 </span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>Store {
-    data: Vec&lt;KV&gt;,
+    <span class="kw">pub </span>data: Vec&lt;KV&gt;,
 }
 
 <span class="kw">impl </span>Store {
@@ -111,6 +154,7 @@
     }
 
     <span class="doccomment">/// Inserts a key-value pair into the store.
+    /// and save the new data into file
     ///
     /// # Arguments
     /// * `key` - The key to insert.
@@ -119,11 +163,20 @@
     /// # Returns
     /// * `Ok(())` if the insertion is successful.
     /// * `Err(&amp;str)` if the key already exists.
-    </span><span class="kw">pub fn </span>insert(<span class="kw-2">&amp;mut </span><span class="self">self</span>, key: String, value: String) -&gt; <span class="prelude-ty">Result</span>&lt;(), <span class="kw-2">&amp;</span>str&gt; {
+    </span><span class="kw">pub fn </span>insert(<span class="kw-2">&amp;mut </span><span class="self">self</span>, key: <span class="kw-2">&amp;</span>str, value: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;(), String&gt; {
         <span class="kw">let </span>pair = <span class="self">self</span>.get(<span class="kw-2">&amp;</span>key);
         <span class="kw">match </span>pair {
-            <span class="prelude-val">Ok</span>(<span class="kw">_</span>) =&gt; <span class="prelude-val">Err</span>(<span class="string">"Key already exists"</span>),
-            <span class="prelude-val">Err</span>(<span class="kw">_</span>) =&gt; <span class="prelude-val">Ok</span>(<span class="self">self</span>.data.push(KV { key, value })),
+            <span class="prelude-val">Ok</span>(<span class="kw">_</span>) =&gt; <span class="prelude-val">Err</span>(<span class="string">"Key already exists"</span>.to_string()),
+            <span class="prelude-val">Err</span>(<span class="kw">_</span>) =&gt; {
+                <span class="self">self</span>.data.push(KV {
+                    key: key.to_string(),
+                    value: value.to_string(),
+                });
+                <span class="kw">if let </span><span class="prelude-val">Err</span>(e) = <span class="self">self</span>.persist_data() {
+                    <span class="kw">return </span><span class="prelude-val">Err</span>(e.to_string());
+                }
+                <span class="prelude-val">Ok</span>(())
+            }
         }
     }
 
@@ -145,6 +198,7 @@
     }
 
     <span class="doccomment">/// Updates the value associated with the given key.
+    /// and save the new data into file
     ///
     /// # Arguments
     /// * `key` - The key to update.
@@ -152,15 +206,16 @@
     ///
     /// # Returns
     /// * `Ok(())` if the update is successful.
-    /// * `Err(&amp;str)` if the key is not found.
-    </span><span class="kw">pub fn </span>update(<span class="kw-2">&amp;mut </span><span class="self">self</span>, key: <span class="kw-2">&amp;</span>str, value: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;(), <span class="kw-2">&amp;</span>str&gt; {
-        <span class="kw">let </span>entity = <span class="kw-2">&amp;mut </span><span class="self">self</span>.get(key);
+    /// * `Err(String)` if the key is not found.
+    </span><span class="kw">pub fn </span>update(<span class="kw-2">&amp;mut </span><span class="self">self</span>, key: <span class="kw-2">&amp;</span>str, value: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;(), String&gt; {
+        <span class="kw">let </span>entity = <span class="self">self</span>.get(key);
         <span class="kw">match </span>entity {
             <span class="prelude-val">Ok</span>(pair) =&gt; {
                 pair.value = value.to_string();
+                <span class="self">self</span>.persist_data().unwrap();
                 <span class="prelude-val">Ok</span>(())
             }
-            <span class="prelude-val">Err</span>(e) =&gt; <span class="prelude-val">Err</span>(e),
+            <span class="prelude-val">Err</span>(e) =&gt; <span class="prelude-val">Err</span>(e.to_string()),
         }
     }
 
@@ -171,7 +226,34 @@
     </span><span class="kw">pub fn </span>delete(<span class="kw-2">&amp;mut </span><span class="self">self</span>, key: <span class="kw-2">&amp;</span>str) {
         <span class="kw">if let </span><span class="prelude-val">Some</span>(index) = <span class="self">self</span>.data.iter().position(|x| x.key == key) {
             <span class="self">self</span>.data.remove(index);
+            <span class="self">self</span>.persist_data().unwrap();
         }
+    }
+
+    <span class="doccomment">/// Persists the current data to the storage by serializing it and writing it to a file.
+    ///
+    /// This method clones the current data in the storage, serializes it into a binary format,
+    /// and writes it to the associated file. If the file operation is successful, it returns `Ok(())`.
+    /// If there is an error during the file operation, it returns an error message.
+    ///
+    /// # Returns
+    ///
+    /// * `Ok(())` - If the data is successfully persisted to the file.
+    /// * `Err(&amp;str)` - If there is an error during the file operation, with an error message.
+    ///
+    /// # Errors
+    ///
+    /// This method returns an error in the following situations:
+    ///
+    /// * If there is an issue with the file operation (e.g., unable to write to the file).
+    </span><span class="kw">fn </span>persist_data(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;(), <span class="kw-2">&amp;</span>str&gt; {
+        <span class="kw">let </span>d = <span class="self">self</span>.data.clone(); <span class="comment">// Clone the current data to avoid borrowing issues.
+        </span><span class="kw">let </span><span class="kw-2">mut </span>storage = STORAGE_MUTEX.lock().unwrap();
+        <span class="kw">let </span>result = storage.save_file(d); <span class="comment">// Attempt to save the cloned data to the file.
+        </span><span class="kw">match </span>result {
+            <span class="prelude-val">Ok</span>(<span class="kw">_</span>) =&gt; <span class="prelude-val">Ok</span>(()), <span class="comment">// Return Ok if the file operation is successful.
+            </span><span class="prelude-val">Err</span>(<span class="kw">_</span>) =&gt; <span class="prelude-val">Err</span>(<span class="string">"Failed to persist data."</span>), <span class="comment">// Return an error message if the file operation fails.
+        </span>}
     }
 }
 </code></pre></div></section></main></body></html>
