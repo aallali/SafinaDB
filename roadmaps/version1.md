@@ -104,11 +104,11 @@ $>
     - [x] Create a basic CLI for inserting and retrieving data.
 
 4. **Persistence**:
-    - [ ] Implement simple file-based persistence to save and load key-value pairs.
-        - [ ] Define a method to save the key-value pairs to a file.
-        - [ ] Define a method to load key-value pairs from a file at startup.
+    - [x] Implement simple file-based persistence to save and load key-value pairs.
+        - [x] Define a method to save the key-value pairs to a file.
+        - [x] Define a method to load key-value pairs from a file at startup.
     - [ ] Ensure data is loaded from the file on startup and saved on exit.
-        - [ ] Modify the `main` function to load data at startup.
+        - [x] Modify the `main` function to load data at startup.
         - [ ] Modify the `main` function to save data on exit.
 5.  **Testing**
     - [ ] Write unit tests for CRUD operations and storage functions.
