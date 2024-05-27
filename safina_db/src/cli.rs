@@ -1,8 +1,6 @@
-use crate::kv_store::Store;
 use crate::STORE;
 use clap::{arg, Command};
 use std::io::Write;
-use std::sync::MutexGuard;
 
 /// Runs the REPL loop, reading user input and responding accordingly.
 ///
@@ -47,7 +45,7 @@ fn respond(line: &str) -> Result<bool, String> {
         .try_get_matches_from(args)
         .map_err(|e| e.to_string())?;
 
-    let mut store: MutexGuard<Store> = STORE.lock().map_err(|e| e.to_string())?;
+    let mut store = STORE.lock().unwrap();
 
     match matches.subcommand() {
         Some(("insert", sub_matches)) => {
