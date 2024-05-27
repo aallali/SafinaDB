@@ -1,4 +1,4 @@
-use crate::STORE;
+use crate::STORE_MUTEX;
 use clap::{arg, Command};
 use std::io::Write;
 
@@ -45,7 +45,7 @@ fn respond(line: &str) -> Result<bool, String> {
         .try_get_matches_from(args)
         .map_err(|e| e.to_string())?;
 
-    let mut store = STORE.lock().unwrap();
+    let mut store: std::sync::MutexGuard<crate::Store> = STORE_MUTEX.lock().unwrap();
 
     match matches.subcommand() {
         Some(("insert", sub_matches)) => {
