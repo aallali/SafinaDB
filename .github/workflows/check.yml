@@ -48,11 +48,12 @@ jobs:
         ls -la
         echo "================================="
         ls -la safina_db/target
+        rm -rf gh-pages/documentation
         mv safina_db/target/doc documentation
         cp -r documentation/* gh-pages/
-        
+       
         cd gh-pages
-        echo $(date)::$(whoami) > NOW && cat NOW
+        echo $(date)::$(whoami) > NOW.txt && cat NOW.txt
         git add .
         git commit -m "Deploy documentation"
         git push --force https://${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }} gh-pages
