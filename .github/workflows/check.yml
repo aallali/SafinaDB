@@ -17,7 +17,7 @@ jobs:
     - name: Change Directory to safina_db and Build
       run: |
         cd safina_db
-        cargo check
+        cargo check -q
   test:
     needs: check
     runs-on: ubuntu-latest
@@ -26,7 +26,7 @@ jobs:
     - name: Run tests
       run: |
         cd safina_db
-        cargo test    
+        cargo test -q 
   deploy_docs:
     needs: check
     runs-on: ubuntu-latest
