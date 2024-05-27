@@ -36,7 +36,7 @@ impl Storage {
     /// # Returns
     ///
     /// * `Ok(Vec<KV>)` - A vector of deserialized KV structs if the operation is successful.
-    /// * `Err(Box<dyn Error>)` - An error message if the operation fails.
+    /// * `Box<dyn Error>>` - An error message if the operation fails.
     pub fn load_file(&mut self, file_path: Option<&str>) -> Result<Vec<KV>, Box<dyn Error>> {
         match file_path {
             Some(path) => {
