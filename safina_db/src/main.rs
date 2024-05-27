@@ -1,10 +1,11 @@
 mod cli;
 mod kv_store;
+mod storage;
 
 use kv_store::Store;
+
 use once_cell::sync::Lazy;
 use std::sync::Mutex;
-
 
 /// A globally accessible, thread-safe, lazily initialized instance of `Store`.
 ///
@@ -25,7 +26,22 @@ use std::sync::Mutex;
 /// ```
 static STORE: Lazy<Mutex<Store>> = Lazy::new(|| Mutex::new(Store::new()));
 
-
 fn main() -> Result<(), String> {
-    cli::run()
+    {
+        let mut store = STORE.lock().unwrap();
+        println!("- Loading data...");
+        match store.storage.load_file(Some("db")) {
+            Ok(data) => store.data = data,
+            Err(err) => {
+                println!("Invalid: {}", err);
+            }
+        }
+        println!("- Data overview:");
+        for d in &store.data {
+            println!("      - \"{}\" : \"{}\"", d.key, d.value)
+        }
+    }
+
+    cli::run().unwrap();
+    return Ok(());
 }
