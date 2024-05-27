@@ -1,4 +1,4 @@
-use crate::storage::Storage;
+use super::STORAGE_MUTEX;
 use serde;
 
 /// Represents a key-value pair.
@@ -122,7 +122,8 @@ impl Store {
     /// * If there is an issue with the file operation (e.g., unable to write to the file).
     fn persist_data(&mut self) -> Result<(), &str> {
         let d = self.data.clone(); // Clone the current data to avoid borrowing issues.
-        let result = self.storage.save_file(d); // Attempt to save the cloned data to the file.
+        let mut storage = STORAGE_MUTEX.lock().unwrap();
+        let result = storage.save_file(d); // Attempt to save the cloned data to the file.
         match result {
             Ok(_) => Ok(()), // Return Ok if the file operation is successful.
             Err(_) => Err("Failed to persist data."), // Return an error message if the file operation fails.
