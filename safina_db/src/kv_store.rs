@@ -12,7 +12,6 @@ pub struct KV {
 #[derive(Debug)]
 pub struct Store {
     pub data: Vec<KV>,
-    pub storage: Storage,
 }
 
 impl Store {
@@ -21,10 +20,7 @@ impl Store {
     /// # Returns
     /// A new instance of `Store`.
     pub fn new() -> Self {
-        Store {
-            data: Vec::new(),
-            storage: Storage::new(None),
-        }
+        Store { data: Vec::new() }
     }
 
     /// Inserts a key-value pair into the store.
