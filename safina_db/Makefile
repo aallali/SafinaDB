@@ -36,6 +36,7 @@ doc:
 	@echo "Moving documentation to 'documentation' folder..."
 	@rm -rf ../documentation
 	@mv target/doc ../documentation
+	@open ../documentation/safina_db/index.html
 
 # Clean the project
 clean:
