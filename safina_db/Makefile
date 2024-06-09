@@ -18,11 +18,12 @@ run:
 # Run tests
 test:
 	@echo "Running tests..."
+	make clean-test-db
 	@cargo test
 	make clean-test-db
 
 clean-test-db:
-	@rm db-test-*
+	find . -name 'db-test-*' -exec rm -f {} +
 # Run benchmarks
 bench:
 	@echo "Running benchmarks..."
