@@ -186,6 +186,7 @@ mod tests {
             value: String::from("value11-with-empty-key")
         };
         let mut store = TEST_STORE.lock().unwrap();
+        store.delete(&test_data.key);
         store.insert(&test_data.key, &test_data.value).unwrap();
         store.delete(&test_data.key);
         let result = store.get(&test_data.key);
