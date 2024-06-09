@@ -27,6 +27,7 @@ pub static TEST_STORE: Lazy<Mutex<Store>> = Lazy::new(|| {
 mod tests {
     use super::TEST_STORE;
     use safina_db::kv_store::KV;
+
     #[test]
     fn test_insert_new_key() {
         let mut store = TEST_STORE.lock().unwrap();
