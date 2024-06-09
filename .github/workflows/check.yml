@@ -1,4 +1,4 @@
-name: Check & Deploy Doc
+name: Check & Test & Deploy Doc
 
 on:
   push:
@@ -28,7 +28,7 @@ jobs:
         cd safina_db
         cargo test -q 
   deploy_docs:
-    needs: check
+    needs: test
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
